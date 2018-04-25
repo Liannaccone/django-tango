@@ -7,4 +7,4 @@ class User(models.Model):
     email = models.EmailField()
 
     def __str__(self):
-        return str(self.last_name + ", " + self.firstname)
+        return str(self.last_name + ", " + self.first_name)

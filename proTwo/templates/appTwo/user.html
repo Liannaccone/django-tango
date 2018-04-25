@@ -6,6 +6,29 @@
     <title>User Page</title>
   </head>
   <body>
-    <h1>this is user page</h1>
+    <h1>Welcome to the User Page</h1>
+    <h2>Here are your user records:</h2>
+
+
+    <div class="userList">
+      {% if users %}
+        <ol>
+          {% for user in users %}
+            <li>User Info
+              <ul>
+                <li>First Name: {{ user.first_name }}</li>
+                <li>Last Name: {{ user.last_name }}</li>
+                <li>Email: {{ user.email }}</li>
+              </ul>
+            </li>
+          {% endfor %}
+        </ol>
+      {% else %}
+        <p>NO USERS TO DISPLAY</p>
+      {% endif %}
+
+    </div>
+
+
   </body>
 </html>
