@@ -1,15 +1,20 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from appTwo.models import User
+# from appTwo.models import User
+from appTwo.forms import NewUserForm
+
 # Create your views here.
 def index(request):
-    return HttpResponse('<em>Hellooooo World!!</em>')
+    return render(request, 'appTwo/index.html')
 
-def user_listing(request):
-    user_list = User.objects.order_by('last_name')
-    user_dict = {'users': user_list}
-    return render(request, 'appTwo/user.html', context=user_dict)
+def users(request):
+    form = NewUserForm()
+    if request.method == 'POST':
+        form = NewUserForm(request.POST)
 
-def help(request):
-    helpdict = {'help_insert': 'HELPHELPHELP Page'}
-    return render(request, 'appTwo/help.html', context=helpdict)
+        if form.is_valid():
+            form.save(commit=True)
+            return index(request)
+        else:
+            print('ERROR FORM INVALID')
+
+    return render(request, 'appTwo/user.html', {'form': form})
